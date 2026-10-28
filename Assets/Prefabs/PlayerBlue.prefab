@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2847844823350320447}
   - component: {fileID: 6316088198750698990}
   - component: {fileID: 7073774867688346007}
-  - component: {fileID: 7812232579288190285}
+  - component: {fileID: 8914441587357705060}
   m_Layer: 0
   m_Name: PlayerBlue
   m_TagString: Untagged
@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c50693c90a6747e4eb98d73c1067f0d9, type: 2}
+  - {fileID: 2100000, guid: b7ac357f55cf62d4c8fab974abe41c54, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -133,7 +133,6 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 7073774867688346007}
-  - {fileID: 7812232579288190285}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &7073774867688346007
 MonoBehaviour:
@@ -151,8 +150,8 @@ MonoBehaviour:
   SyncScale: 0
   SyncParent: 0
   _autoAOIOverride: 1
-  DisableSharedModeInterpolation: 0
---- !u!114 &7812232579288190285
+  DisableSharedModeInterpolation: 1
+--- !u!114 &8914441587357705060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,8 +160,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1298319251305691069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37c1989099f5cb4eac6716fb4b9de7b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f8022a1964f72641a1f980a610d0853, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  _Chegou:
-    _value: 0
+  m_EditorClassIdentifier: Assembly-CSharp::CorridaPlayer
+  velocidade: 6
+  chegada: 10

@@ -3,37 +3,61 @@ using UnityEngine;
 
 public class RaceStart : SimulationBehaviour, IPlayerJoined
 {
-    public NetworkObject playerPrefab;
+    [SerializeField] private NetworkObject playerPrefab;
 
     private async void Start()
     {
         NetworkRunner runner = GetComponent<NetworkRunner>();
+        if (playerPrefab == null)
+        {
+            Debug.LogError("prefab nao configurado");
+            return;
+        }
 
-        var result = await runner.StartGame(new StartGameArgs
+        runner.ProvideInput = false;
+
+        var sceneManager =
+            GetComponent<NetworkSceneManagerDefault>();
+
+        var result = await runner.StartGame(
+            new StartGameArgs
             {
                 GameMode = GameMode.Shared,
                 SessionName = "Corrida01",
-                PlayerCount = 2
-
+                PlayerCount = 2,
+                SceneManager = sceneManager
             }
         );
-        if (!result.Ok)
+
+        if (result.Ok)
+        {
+            Debug.Log("conectado a corrida");
+        }
+        else
         {
             Debug.LogError(result.ShutdownReason);
-        }           
+        }
+
+
     }
 
-    public void PlayerJoined(PlayerRef player)
+    public void PlayerJoined(PlayerRef jogador)
     {
-        if (player != Runner.LocalPlayer)
+        if (jogador != Runner.LocalPlayer)
             return;
+        bool primeiroJogador =
+            Runner.IsSharedModeMasterClient;
 
-        Vector3 posicao = Runner.IsSharedModeMasterClient
-            ? new Vector3(-2, 0.5f, -9)
-            : new Vector3(2, 0.5f, -9);
+        Vector3 posicao = primeiroJogador
+            ? new Vector3(-2f, 0.5f, -9f)
+            : new Vector3(2f, 0.5f, -9f);
 
-        NetworkObject objeto = Runner.Spawn(playerPrefab, posicao, Quaternion.identity);
+        NetworkObject novoJogador = Runner.Spawn(
+            playerPrefab,
+            posicao,
+            Quaternion.identity
+        );
 
-        Runner.SetPlayerObject(player, objeto);
+        Runner.SetPlayerObject(jogador, novoJogador);
     }
 }
